@@ -13,5 +13,5 @@ morg07.R     - extracts CPS MORG data from 2000-2007
 morg13.R     - extracts CPS MORG data from 2000-2013
 morg13lf.R   - extracts CPS MORG data from 2000-2013 with modified native_emprate
 
-For more information, see http://econdataus.com/amjobs.htm 
+For more information, see <A HREF="http://econdataus.com/amjobs.htm">http://econdataus.com/amjobs.htm</A> 
 </pre>
