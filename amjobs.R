@@ -143,77 +143,78 @@ lma <- (with(ddca, lm(lnimmshare_emp_stem_e_grad ~ year)))
 print(sprintf("14) %9.4f %9.4f %8.4f %8.4f  lnimmshare_emp_stem_e_grad ~ year",
   lma$coef[1], lma$coef[2], with(ddca, cor(lnimmshare_emp_stem_e_grad, year)), anova(lma)$'Pr(>F)'[1]))
 
-ddsave <- dd
+print("                          CORREL                                                             ")
+print(" N  INTERCEPT    SLOPE     COEF   P-VALUE  T.R.C    OLS   Y VARIABLE ~ X VARIABLE [, WEIGHTS]")
+print("--  ---------  --------  -------  -------  -----  ------  -----------------------------------")
 print(paste(labyears, "OLS WITH YEAR, STATE, AND SPECIFIED GROUP OF FOREIGN WORKERS", sep=", "))
 dd0$share <- dd0$immshare_emp_stem_e_grad
-dd <- dd0[dd0$share > 0,]
-dd$lnshare <- log(dd$share)
-lm <- (with(dd, lm(lnemprate_native ~ lnshare + fyear + fstate, weights=weight_native)))
-print(sprintf("15) %9.4f %9.4f %8.4f %8.4f  Advanced US degree and in STEM occupation",
-  lm$coef[1], lm$coef[2], with(dd, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[1]))
-
-dd0$share <- dd0$immshare_emp_stem_n_grad
-dd <- dd0[dd0$share > 0,]
-dd$lnshare <- log(dd$share)
-lm <- (with(dd, lm(lnemprate_native ~ lnshare + fyear + fstate, weights=weight_native)))
-print(sprintf("16) %9.4f %9.4f %8.4f %8.4f  Advanced foreign degree and in STEM occupation",
-  lm$coef[1], lm$coef[2], with(dd, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[1]))
+tt <- dd0[dd0$share > 0,]
+tt <- tt[tt$immshare_emp_stem_n_grad > 0,]
+tt$lnshare <- log(tt$share)
+tt$lnimmshare_emp_stem_n_grad <- log(tt$immshare_emp_stem_n_grad)
+lm <- (with(tt, lm(lnemprate_native ~ lnshare + lnimmshare_emp_stem_n_grad + fyear + fstate, weights=weight_native)))
+print(sprintf("15a)%9.4f %9.4f %8.4f %8.4f  3.3.1   0.004  Advanced US degree and in STEM occupation",
+  lm$coef[1], lm$coef[2], with(tt, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[1]))
+print(sprintf("15b)%9.4f %9.4f %8.4f %8.4f  3.3.3 -0.0002  Advanced foreign degree and in STEM occupation",
+  lm$coef[1], lm$coef[3], with(tt, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[2]))
 
 dd0$share <- dd0$immshare_emp_stem_grad
-dd <- dd0[dd0$share > 0,]
-dd$lnshare <- log(dd$share)
-lm <- (with(dd, lm(lnemprate_native ~ lnshare + fyear + fstate, weights=weight_native)))
-print(sprintf("17) %9.4f %9.4f %8.4f %8.4f  Advanced degree and in STEM occupation",
-  lm$coef[1], lm$coef[2], with(dd, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[1]))
+tt <- dd0[dd0$share > 0,]
+tt$lnshare <- log(tt$share)
+lm <- (with(tt, lm(lnemprate_native ~ lnshare + fyear + fstate, weights=weight_native)))
+print(sprintf("16) %9.4f %9.4f %8.4f %8.4f  1.4.1   0.004  Advanced degree and in STEM occupation",
+  lm$coef[1], lm$coef[2], with(tt, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[1]))
 
 dd0$share <- dd0$immshare_emp_immig_grad
-dd <- dd0[dd0$share > 0,]
-dd$lnshare <- log(dd$share)
-lm <- (with(dd, lm(lnemprate_native ~ lnshare + fyear + fstate, weights=weight_native)))
-print(sprintf("18) %9.4f %9.4f %8.4f %8.4f  Advanced degree",
-  lm$coef[1], lm$coef[2], with(dd, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[1]))
+tt <- dd0[dd0$share > 0,]
+tt$lnshare <- log(tt$share)
+lm <- (with(tt, lm(lnemprate_native ~ lnshare + fyear + fstate, weights=weight_native)))
+print(sprintf("17) %9.4f %9.4f %8.4f %8.4f  1.3.1   0.011  Advanced degree",
+  lm$coef[1], lm$coef[2], with(tt, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[1]))
 
 dd0$share <- dd0$immshare_emp_immig_coll
-dd <- dd0[dd0$share > 0,]
-dd$lnshare <- log(dd$share)
-lm <- (with(dd, lm(lnemprate_native ~ lnshare + fyear + fstate, weights=weight_native)))
-print(sprintf("19) %9.4f %9.4f %8.4f %8.4f  Bachelor's degree or higher",
-  lm$coef[1], lm$coef[2], with(dd, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[1]))
+tt <- dd0[dd0$share > 0,]
+tt$lnshare <- log(tt$share)
+lm <- (with(tt, lm(lnemprate_native ~ lnshare + fyear + fstate, weights=weight_native)))
+print(sprintf("18) %9.4f %9.4f %8.4f %8.4f  1.2.1   0.008  Bachelor's degree or higher",
+  lm$coef[1], lm$coef[2], with(tt, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[1]))
 
 dd0$share <- dd0$immshare_emp_nostem_grad
-dd <- dd0[dd0$share > 0,]
-dd$lnshare <- log(dd$share)
-lm <- (with(dd, lm(lnemprate_native ~ lnshare + fyear + fstate, weights=weight_native)))
-print(sprintf("20) %9.4f %9.4f %8.4f %8.4f  Advanced degree and NOT in STEM occupation",
-  lm$coef[1], lm$coef[2], with(dd, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[1]))
+tt <- dd0[dd0$share > 0,]
+tt$lnshare <- log(tt$share)
+lm <- (with(tt, lm(lnemprate_native ~ lnshare + fyear + fstate, weights=weight_native)))
+print(sprintf("19) %9.4f %9.4f %8.4f %8.4f  .....  ......  Advanced degree and NOT in STEM occupation",
+  lm$coef[1], lm$coef[2], with(tt, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[1]))
 
 dd0$share <- dd0$immshare_emp_only_coll
-dd <- dd0[dd0$share > 0,]
-dd$lnshare <- log(dd$share)
-lm <- (with(dd, lm(lnemprate_native ~ lnshare + fyear + fstate, weights=weight_native)))
-print(sprintf("21) %9.4f %9.4f %8.4f %8.4f  Bachelor's degree only",
-  lm$coef[1], lm$coef[2], with(dd, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[1]))
+tt <- dd0[dd0$share > 0,]
+tt$lnshare <- log(tt$share)
+lm <- (with(tt, lm(lnemprate_native ~ lnshare + fyear + fstate, weights=weight_native)))
+print(sprintf("20) %9.4f %9.4f %8.4f %8.4f  .....  ......  Bachelor's degree only",
+  lm$coef[1], lm$coef[2], with(tt, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[1]))
 
+print("                          CORREL                                              ")
+print(" N  INTERCEPT    SLOPE     COEF   P-VALUE  Y VARIABLE ~ X VARIABLE [, WEIGHTS]")
+print("--  ---------  --------  -------  -------  -----------------------------------")
 print(paste(labyears, "OLS WITH YEAR, STATE, AND 4 SUBSETS OF FOREIGN WORKERS WITH BACHELOR'S DEGREE OR HIGHER", sep=", "))
 dd0$share <- dd0$immshare_emp_stem_e_grad
-dd <- dd0[dd0$share > 0,]
-dd <- dd[dd$immshare_emp_stem_n_grad > 0,]
-dd <- dd[dd$immshare_emp_nostem_grad > 0,]
-dd$lnshare <- log(dd$share)
-dd$lnimmshare_emp_stem_n_grad <- log(dd$immshare_emp_stem_n_grad)
-dd$lnimmshare_emp_nostem_grad <- log(dd$immshare_emp_nostem_grad)
-dd$lnimmshare_emp_only_coll   <- log(dd$immshare_emp_only_coll)
-lm <- (with(dd, lm(lnemprate_native ~ lnshare + lnimmshare_emp_stem_n_grad + lnimmshare_emp_nostem_grad + lnimmshare_emp_only_coll
+tt <- dd0[dd0$share > 0,]
+tt <- tt[tt$immshare_emp_stem_n_grad > 0,]
+tt <- tt[tt$immshare_emp_nostem_grad > 0,]
+tt$lnshare <- log(tt$share)
+tt$lnimmshare_emp_stem_n_grad <- log(tt$immshare_emp_stem_n_grad)
+tt$lnimmshare_emp_nostem_grad <- log(tt$immshare_emp_nostem_grad)
+tt$lnimmshare_emp_only_coll   <- log(tt$immshare_emp_only_coll)
+lm <- (with(tt, lm(lnemprate_native ~ lnshare + lnimmshare_emp_stem_n_grad + lnimmshare_emp_nostem_grad + lnimmshare_emp_only_coll
   + fyear + fstate, weights=weight_native)))
-print(sprintf("22) %9.4f %9.4f %8.4f %8.4f  Advanced US degree and in STEM occupation",
-  lm$coef[1], lm$coef[2], with(dd, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[1]))
-print(sprintf("23) %9.4f %9.4f %8.4f %8.4f  Advanced foreign degree and in STEM occupation",
-  lm$coef[1], lm$coef[3], with(dd, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[2]))
-print(sprintf("24) %9.4f %9.4f %8.4f %8.4f  Advanced degree and NOT in STEM occupation",
-  lm$coef[1], lm$coef[4], with(dd, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[3]))
-print(sprintf("25) %9.4f %9.4f %8.4f %8.4f  Bachelor's degree only",
-  lm$coef[1], lm$coef[5], with(dd, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[4]))
-dd <- ddsave
+print(sprintf("21a)%9.4f %9.4f %8.4f %8.4f  Advanced US degree and in STEM occupation",
+  lm$coef[1], lm$coef[2], with(tt, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[1]))
+print(sprintf("21b)%9.4f %9.4f %8.4f %8.4f  Advanced foreign degree and in STEM occupation",
+  lm$coef[1], lm$coef[3], with(tt, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[2]))
+print(sprintf("21c)%9.4f %9.4f %8.4f %8.4f  Advanced degree and NOT in STEM occupation",
+  lm$coef[1], lm$coef[4], with(tt, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[3]))
+print(sprintf("21d)%9.4f %9.4f %8.4f %8.4f  Bachelor's degree only",
+  lm$coef[1], lm$coef[5], with(tt, cor(lnemprate_native, lnshare)), anova(lm)$'Pr(>F)'[4]))
 
 # zg1: Graph employed natives vs. immigration share (foreign STEM US adv. degrees)
 with(dd, plot(emp_native/1000000 ~ emp_imm, cex=0.5, pch=dd$sPch, col=dd$sCol,
