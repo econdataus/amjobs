@@ -1,6 +1,6 @@
 # amjobs
 Programs to replicate findings in the study "Immigration and American Jobs".
-
+<pre>
 Description of programs:
 
 amjobs.R     - function called by following 4 amjobs*.R files
@@ -14,3 +14,4 @@ morg13.R     - extracts CPS MORG data from 2000-2013
 morg13lf.R   - extracts CPS MORG data from 2000-2013 with modified native_emprate
 
 For more information, see http://econdataus.com/amjobs.htm 
+</pre>
