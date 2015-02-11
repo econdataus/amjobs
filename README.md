@@ -13,5 +13,7 @@ morg07.R     - extracts CPS MORG data from 2000-2007
 morg13.R     - extracts CPS MORG data from 2000-2013
 morg13lf.R   - extracts CPS MORG data from 2000-2013 with modified native_emprate
 
+Note: The morg*.dta files that are read by the morg*.R files can be found at <A HREF="http://nber.org/morg/annual/">http://nber.org/morg/annual/</A>
+
 For more information, see <A HREF="http://econdataus.com/amjobs.htm">http://econdataus.com/amjobs.htm</A> 
 </pre>
