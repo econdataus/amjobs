@@ -1,5 +1,5 @@
 # amjobs
-Programs to replicate findings in the study "Immigration and American Jobs".
+Reads CPS Merged Outgoing Rotation Groups (MORG) files and replicates the findings of the study "Immigration and American Jobs" by Madeline Zavodny.
 <pre>
 Description of programs:
 

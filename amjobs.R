@@ -40,6 +40,12 @@ print(dim(ee))
 dd$immshare_emp_only_coll     <- dd$immshare_emp_immig_coll - dd$immshare_emp_immig_grad
 ee <- dd[dd$immshare_emp_only_coll <= 0,]
 print(dim(ee))
+dd$immshare_emp_immig         <- dd$emp_immig / dd$emp_total * 100
+ee <- dd[dd$immshare_emp_immig <= 0,]
+print(dim(ee))
+dd$immshare_emp_no_coll       <- dd$immshare_emp_immig - dd$immshare_emp_immig_coll
+ee <- dd[dd$immshare_emp_no_coll <= 0,]
+print(dim(ee))
 
 # Calculate weight_native and create fyear and fstate
 dd$sum_lf_native <- with(dd, ave(lf_native, year, FUN=sum))
