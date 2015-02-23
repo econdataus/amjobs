@@ -1,5 +1,6 @@
 # Read public.dta for 2000-2010 to create data.frame ddorg
 library(foreign) # needed for read.dta
+filex <- "0"
 ddorg <- read.dta("public.dta")
 dd = ddorg[ddorg$year < 2008,] # CHANGE FOR YEARS
 labyears="2000-2007" # CHANGE FOR YEARS

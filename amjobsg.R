@@ -1,3 +1,4 @@
+# Set year dummy variables for 2000-20007
 dd$y01 <- 0
 dd$y02 <- 0
 dd$y03 <- 0
@@ -13,6 +14,7 @@ dd$y05[dd$year == 2005] <- 1
 dd$y06[dd$year == 2006] <- 1
 dd$y07[dd$year == 2007] <- 1
 
+# Set state dummy variables
 dd$AK <- 0
 dd$AR <- 0
 dd$AZ <- 0
@@ -115,6 +117,8 @@ dd$WA[dd$statefip == 53] <- 1
 dd$WI[dd$statefip == 55] <- 1
 dd$WV[dd$statefip == 54] <- 1
 dd$WY[dd$statefip == 56] <- 1
+
+# Set ss and st to state abbreviation
 dd$ss=""
 dd$ss[dd$statefip == 02] <- "AK"
 dd$ss[dd$statefip == 01] <- "AL"
@@ -173,6 +177,7 @@ dd$ss[dd$statefip == 54] <- "WV"
 dd$ss[dd$statefip == 56] <- "WY"
 dd$st <- dd$ss
 
+# Set leg (legend), col (color), pch (symbol) and put into gg (data.frame)
 leg <- c("California","Connecticut","DC","Florida","Georgia","Illinois",
   "Maryland","Massachusetts","Michigan","New Jersey","New York",
   "Ohio","Oregon","Pennsylvania","Texas","Virginia","Washington")
@@ -181,6 +186,7 @@ pch <- c(0,1,2,4,5,6,9,10,11,12,13,14,17,18,19,20,21)
 gg <- data.frame(leg=leg,col=col,pch=pch)
 #print(head(gg))
 
+#Set state colors
 dd$sCol="black"
 dd$sCol[dd$ss == "CA"] <- gg$col[1]
 dd$sCol[dd$ss == "CT"] <- gg$col[2]
@@ -200,6 +206,7 @@ dd$sCol[dd$ss == "TX"] <- gg$col[15]
 dd$sCol[dd$ss == "VA"] <- gg$col[16]
 dd$sCol[dd$ss == "WA"] <- gg$col[17]
 
+#Set state symbols
 dd$sPch=3
 dd$sPch[dd$ss == "CA"] <- gg$pch[1]
 dd$sPch[dd$ss == "CT"] <- gg$pch[2]
@@ -219,6 +226,7 @@ dd$sPch[dd$ss == "TX"] <- gg$pch[15]
 dd$sPch[dd$ss == "VA"] <- gg$pch[16]
 dd$sPch[dd$ss == "WA"] <- gg$pch[17]
 
+#Set ss abbreviations blank for top states (st unchanged)
 dd$ss[dd$ss == "CA"] <- ""
 dd$ss[dd$ss == "CT"] <- ""
 dd$ss[dd$ss == "DC"] <- ""
@@ -236,3 +244,55 @@ dd$ss[dd$ss == "PA"] <- ""
 dd$ss[dd$ss == "TX"] <- ""
 dd$ss[dd$ss == "VA"] <- ""
 dd$ss[dd$ss == "WA"] <- ""
+
+#Set year colors
+dd$yCol="black"
+dd$yCol[dd$year == 2000] <- gg$col[1]
+dd$yCol[dd$year == 2001] <- gg$col[2]
+dd$yCol[dd$year == 2002] <- gg$col[3]
+dd$yCol[dd$year == 2003] <- gg$col[4]
+dd$yCol[dd$year == 2004] <- gg$col[5]
+dd$yCol[dd$year == 2005] <- gg$col[6]
+dd$yCol[dd$year == 2006] <- gg$col[7]
+dd$yCol[dd$year == 2007] <- gg$col[8]
+dd$yCol[dd$year == 2008] <- gg$col[9]
+dd$yCol[dd$year == 2009] <- gg$col[10]
+dd$yCol[dd$year == 2010] <- gg$col[11]
+dd$yCol[dd$year == 2011] <- gg$col[12]
+dd$yCol[dd$year == 2012] <- gg$col[13]
+dd$yCol[dd$year == 2013] <- gg$col[14]
+
+#Set year symbols
+dd$yPch=3
+dd$yPch[dd$year == 2000] <- gg$pch[1]
+dd$yPch[dd$year == 2001] <- gg$pch[2]
+dd$yPch[dd$year == 2002] <- gg$pch[3]
+dd$yPch[dd$year == 2003] <- gg$pch[4]
+dd$yPch[dd$year == 2004] <- gg$pch[5]
+dd$yPch[dd$year == 2005] <- gg$pch[6]
+dd$yPch[dd$year == 2006] <- gg$pch[7]
+dd$yPch[dd$year == 2007] <- gg$pch[8]
+dd$yPch[dd$year == 2008] <- gg$pch[9]
+dd$yPch[dd$year == 2009] <- gg$pch[10]
+dd$yPch[dd$year == 2010] <- gg$pch[11]
+dd$yPch[dd$year == 2011] <- gg$pch[12]
+dd$yPch[dd$year == 2012] <- gg$pch[13]
+dd$yPch[dd$year == 2013] <- gg$pch[14]
+
+dd$yLab=""
+dd$yLab[dd$year == 2000] <- "0"
+dd$yLab[dd$year == 2001] <- "1"
+dd$yLab[dd$year == 2002] <- "2"
+dd$yLab[dd$year == 2003] <- "3"
+dd$yLab[dd$year == 2004] <- "4"
+dd$yLab[dd$year == 2005] <- "5"
+dd$yLab[dd$year == 2006] <- "6"
+dd$yLab[dd$year == 2007] <- "7"
+dd$yLab[dd$year == 2008] <- "8"
+dd$yLab[dd$year == 2009] <- "9"
+dd$yLab[dd$year == 2010] <- "10"
+dd$yLab[dd$year == 2011] <- "11"
+dd$yLab[dd$year == 2012] <- "12"
+dd$yLab[dd$year == 2013] <- "13"
+
+dd$yPos=4
