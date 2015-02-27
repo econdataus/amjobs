@@ -11,6 +11,34 @@ reginfo <- function(n, kk, ll, mm) {
   return(line)
 }
 
+getslope <- function(jj, year1, year2) {
+  jj$lnimmshare_emp_stem_n_grad <- log(jj$immshare_emp_stem_n_grad)
+  kk <- jj[jj$immshare_emp_stem_e_grad > 0,]
+  kk <- kk[kk$immshare_emp_stem_n_grad > 0,]
+  kk <- kk[kk$year >= year1 & kk$year <= year2,]
+  mm <- (with(kk, lm(lnemprate_native ~ lnimmshare_emp_stem_e_grad + lnimmshare_emp_stem_n_grad + fyear + fstate,
+                     weights=weight_native)))
+  ret <- sprintf("%7.4f", mm$coef[2])
+  #print(paste(ret, year1, year2))
+  return(ret)
+}
+
+getslopes <- function(n, jj, year1, year2, year3) {
+  line <- sprintf("%4d", year1)
+  if (year1 > 2000)
+  {
+    for (yr in 2001:year1)
+    {
+      line <- paste(line, "       ")
+    }
+  }
+  for (yr in year2:year3)
+  {
+    line <- paste(line, getslope(jj, year1, yr))
+  }
+  line <- sprintf("%s  %4d", line, year1)
+}
+
 plotstate1 <- function(nn, st, state) {
   x11()
   # Graph Natural Logs of Native Employment Rate vs. Immigrant Share Minus Effects of Year for State
@@ -517,6 +545,25 @@ print(sprintf("%2d) %9.4f %9.4f %8.4f %8.4f  %s",
   nn, mm$coef[1], mm$coef[2], with(kk, cor(lnemprate_native, lnshare)), anova(mm)$'Pr(>F)'[1], ll))
 lst[nn] <- reginfo(nn, kk, ll, mm)
 
+if (max(dd0$year) >= 2013)
+{
+print("")
+print("SLOPE BETWEEN GIVEN YEARS (using same regression as was used to obtain 2.62 job finding)  ")
+print("----  ------  ------  ------  ------  ------  ------  ------  ------  ------  ------  ----")
+print("year    2004    2005    2006    2007    2008    2009    2010    2011    2012    2013  year")
+print("----  ------  ------  ------  ------  ------  ------  ------  ------  ------  ------  ----")
+print( getslopes(1, dd0, 2000, 2004, 2013))
+print( getslopes(1, dd0, 2001, 2005, 2013))
+print( getslopes(1, dd0, 2002, 2006, 2013))
+print( getslopes(1, dd0, 2003, 2007, 2013))
+print( getslopes(1, dd0, 2004, 2008, 2013))
+print( getslopes(1, dd0, 2005, 2009, 2013))
+print( getslopes(1, dd0, 2006, 2010, 2013))
+print( getslopes(1, dd0, 2007, 2011, 2013))
+print( getslopes(1, dd0, 2008, 2012, 2013))
+print( getslopes(1, dd0, 2009, 2013, 2013))
+}
+
 print("                          CORREL                                              ")
 print(" N  INTERCEPT    SLOPE     COEF   P-VALUE  DESCRIPTION                        ")
 print("--  ---------  --------  -------  -------  -----------------------------------")
@@ -891,6 +938,7 @@ abline(lm1, col="red", lty=2)
 abline(lm2)
 readline("Press enter to continue, escape to exit")
 
+#2000-2007
 nn <- nn+1
 plotstate(nn, "CA", "California")
 nn <- nn+1
@@ -925,3 +973,21 @@ nn <- nn+1
 plotstate(nn, "VA", "Virginia")
 nn <- nn+1
 plotstate(nn, "WA", "Washington")
+
+#2000-2013
+nn <- nn+1
+plotstate(nn, "CA", "California")
+nn <- nn+1
+plotstate(nn, "DC", "District of Columbia")
+nn <- nn+1
+plotstate(nn, "FL", "Florida")
+nn <- nn+1
+plotstate(nn, "MA", "Massachusetts")
+nn <- nn+1
+plotstate(nn, "MI", "Michigan")
+nn <- nn+1
+plotstate(nn, "OH", "Ohio")
+nn <- nn+1
+plotstate(nn, "PA", "Pennsylvania")
+nn <- nn+1
+plotstate(nn, "TX", "Texas")
